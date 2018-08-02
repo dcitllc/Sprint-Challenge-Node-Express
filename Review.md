@@ -29,3 +29,5 @@ code 200
 express.Router()
 
 ## What is express.json() and why do we need it?
+
+Parses the json to readable format.

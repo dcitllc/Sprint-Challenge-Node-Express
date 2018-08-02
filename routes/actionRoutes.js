@@ -36,4 +36,26 @@ router.get("/:id", (req, res) => {
     );
 });
 
+//* POST Request tagDb insert()
+router.post("/", (req, res) => {
+  if (!req.body.description && !project_id && !notes) {
+    return res.status(400).json({
+      errorMessage: "Please provide the text for the post."
+    });
+  }
+
+  actionModel
+    .insert({
+      description: req.body.description,
+      project_id: req.body.project_id,
+      notes: req.body.notes
+    })
+    .then(id => res.status(201).json(id))
+    .catch(err =>
+      res.status(500).json({
+        error: "There was an error while saving the action to the database"
+      })
+    );
+});
+
 module.exports = router;

@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "express": "^4.16.3",
+    "init": "^0.1.2",
+    "knex": "^0.15.2",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  },
+  "name": "Sprint-Challenge-Node-Express",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": "git@github.com:dcitllc/Sprint-Challenge-Node-Express.git",
+  "author": "Daniel Chamorro <dan@dcitllc.com>",
+  "license": "MIT"
+}

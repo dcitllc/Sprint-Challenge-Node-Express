@@ -16,6 +16,7 @@ router.get("/", (req, res) => {
 
 //* GET with id
 router.get("/:id", (req, res) => {
+  console.log(req.body);
   const { id } = req.params;
   console.log(id);
   actionModel
@@ -38,7 +39,8 @@ router.get("/:id", (req, res) => {
 
 //* POST Request tagDb insert()
 router.post("/", (req, res) => {
-  if (!req.body.description && !project_id && !notes) {
+  console.log(req.body);
+  if (!req.body.project_id || !req.body.description || !req.body.notes) {
     return res.status(400).json({
       errorMessage: "Please provide the text for the post."
     });
@@ -46,8 +48,8 @@ router.post("/", (req, res) => {
 
   actionModel
     .insert({
-      description: req.body.description,
       project_id: req.body.project_id,
+      description: req.body.description,
       notes: req.body.notes
     })
     .then(id => res.status(201).json(id))

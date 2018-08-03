@@ -85,19 +85,19 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
-  actionModel
+  projectModel
     .remove(id)
-    .then(action => {
-      if (!action) {
+    .then(project => {
+      if (!project) {
         res.status(404).json({
-          message: "The action with the specified ID does not exist."
+          message: "The project with the specified ID does not exist."
         });
       } else {
-        res.status(200).json({ message: "The action has been deleted." });
+        res.status(200).json({ message: "The project has been deleted." });
       }
     })
     .catch(err =>
-      res.status(500).json({ error: "The action could not be removed" })
+      res.status(500).json({ error: "The project could not be removed" })
     );
 });
 

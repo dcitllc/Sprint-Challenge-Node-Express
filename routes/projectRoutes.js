@@ -101,4 +101,21 @@ router.delete("/:id", (req, res) => {
     );
 });
 
+// Get /projects with Id
+router.get("/:id", (req, res, next) => {
+  projectModel
+    .get(req.params.id)
+    .then(result => projectModel.getProjectActions(req.params.id))
+    .then(resultWithActions =>
+      res.status(200).json({ result: result, actions: resultWithActions })
+    )
+    .then(result => {
+      projectModel
+        .getProjectActions(req.params.id)
+        .then(resultWithActions => res.status(200).json({ result: result }));
+    })
+
+    .catch(eror => next({ code: 500, message: eror.message }));
+});
+
 module.exports = router;

@@ -102,7 +102,7 @@ router.delete("/:id", (req, res) => {
 });
 
 // Get /projects with Id
-router.get("/:id", (req, res, next) => {
+router.get("/:id", (req, res) => {
   projectModel
     .get(req.params.id)
     .then(result => projectModel.getProjectActions(req.params.id))

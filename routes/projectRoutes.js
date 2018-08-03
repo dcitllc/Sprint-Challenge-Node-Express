@@ -103,21 +103,21 @@ router.delete("/:id", (req, res) => {
 
 // Get /projects with Id
 router.get("/:id", (req, res) => {
+  const { id } = req.params;
+
   projectModel
-    .get(req.params.id)
-    .then(result => projectModel.getProjectActions(req.params.id))
+    .get(id)
+    .then(result => projectModel.getProjectActions(id))
     .then(resultWithActions =>
       res.status(200).json({ result: result, actions: resultWithActions })
     )
     .then(result => {
       projectModel
-        .getProjectActions(req.params.id)
+        .getProjectActions(id)
         .then(resultWithActions => res.status(200).json({ result: result }));
     })
 
-    .catch(err =>
-      res.status(500).json({ error: "The project could not be removed" })
-    );
+    .catch(err => res.status(500).json({ error: "Something went wrong" }));
 });
 
 module.exports = router;

@@ -37,23 +37,21 @@ router.get("/:id", (req, res) => {
 
 //* POST Request insert()
 router.post("/", (req, res) => {
-  console.log(req.body);
-  if (!req.body.project_id || !req.body.description || !req.body.notes) {
+  if (!req.body.name || !req.body.description) {
     return res.status(400).json({
       errorMessage: "Please provide the text for the post."
     });
   }
 
-  actionModel
+  projectModel
     .insert({
-      project_id: req.body.project_id,
-      description: req.body.description,
-      notes: req.body.notes
+      name: req.body.name,
+      description: req.body.description
     })
     .then(id => res.status(201).json(id))
     .catch(err =>
       res.status(500).json({
-        error: "There was an error while saving the action to the database"
+        error: "There was an error while saving the project to the database"
       })
     );
 });

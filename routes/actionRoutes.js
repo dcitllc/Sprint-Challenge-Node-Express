@@ -37,7 +37,7 @@ router.get("/:id", (req, res) => {
     );
 });
 
-//* POST Request tagDb insert()
+//* POST Request insert()
 router.post("/", (req, res) => {
   console.log(req.body);
   if (!req.body.project_id || !req.body.description || !req.body.notes) {
@@ -57,6 +57,30 @@ router.post("/", (req, res) => {
       res.status(500).json({
         error: "There was an error while saving the action to the database"
       })
+    );
+});
+
+//* UPDATE Request update().
+router.put("/:id", (req, res) => {
+  const { project_id, description, notes } = req.body;
+  const { id } = req.params;
+
+  if (!project_id || !description || !notes) {
+    res.status(400).json({
+      errorMessage: "Please provide text and user id for the posts."
+    });
+  }
+  actionModel
+    .update(id, { project_id, description, notes })
+    .then(response => {
+      if (!response) {
+        res.status(404).json({ message: null });
+      } else {
+        res.status(200).json({ project_id, description, notes });
+      }
+    })
+    .catch(err =>
+      res.status(500).json({ error: "The user could not be updated" })
     );
 });
 

@@ -58,21 +58,22 @@ router.post("/", (req, res) => {
 
 //* UPDATE Request update().
 router.put("/:id", (req, res) => {
-  const { project_id, description, notes } = req.body;
+  const { name, description } = req.body;
   const { id } = req.params;
 
-  if (!project_id || !description || !notes) {
+  if (!name || !description) {
     res.status(400).json({
-      errorMessage: "Please provide text and user id for the posts."
+      errorMessage:
+        "Please provide name or description and user id for the posts."
     });
   }
-  actionModel
-    .update(id, { project_id, description, notes })
+  projectModel
+    .update(id, { name, description })
     .then(response => {
       if (!response) {
         res.status(404).json({ message: null });
       } else {
-        res.status(200).json({ project_id, description, notes });
+        res.status(200).json({ name, description });
       }
     })
     .catch(err =>
